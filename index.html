@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Our Love Story</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat&family=Poppins:wght@300;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --pink: #ff6ec7;
+        --black: #1a1a1a;
+        --white: #ffffff;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(135deg, #1a1a1a, #2c2c2c, #ff6ec7, #1a1a1a);
+        background-size: 400% 400%;
+        animation: gradientBG 15s ease infinite;
+        color: var(--white);
+        line-height: 1.6;
+        overflow-x: hidden;
+      }
+
+      @keyframes gradientBG {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      @keyframes glow {
+        0% {
+          text-shadow: 0 0 5px #ff6ec7, 0 0 10px #ff6ec7;
+        }
+        50% {
+          text-shadow: 0 0 20px #ff6ec7, 0 0 30px #ff6ec7;
+        }
+        100% {
+          text-shadow: 0 0 5px #ff6ec7, 0 0 10px #ff6ec7;
+        }
+      }
+
+      header.main-header {
+        background: rgba(0, 0, 0, 0.7);
+        padding: 1rem;
+        position: relative;
+      }
+
+      .header-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+      }
+
+      .main-header h1 {
+        font-size: 2rem;
+        color: var(--pink);
+        animation: glow 2s infinite;
+        text-shadow: 0 0 5px #ff6ec7, 0 0 10px #ff6ec7;
+        transition: all 0.3s ease;
+      }
+
+      .nav-toggle {
+        background: none;
+        border: none;
+        font-size: 1.8rem;
+        color: var(--pink);
+        display: none;
+        cursor: pointer;
+        position: absolute;
+        right: 1rem;
+      }
+
+      .nav-links {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        transition: transform 0.3s ease-in-out;
+      }
+
+      .nav-links a {
+        color: var(--pink);
+        margin: 0 1rem;
+        text-decoration: none;
+        font-weight: bold;
+        transition: color 0.3s ease;
+      }
+
+      .nav-links a:hover {
+        color: var(--white);
+      }
+
+      @media (max-width: 768px) {
+        .header-container {
+          justify-content: space-between;
+        }
+
+        .main-header h1 {
+          font-size: 1.5rem;
+        }
+
+        .nav-toggle {
+          display: block;
+        }
+
+        .nav-links {
+          position: absolute;
+          top: 100%;
+          right: 0;
+          background: rgba(0, 0, 0, 0.9);
+          flex-direction: column;
+          align-items: flex-start;
+          justify-content: flex-start;
+          padding: 2rem 1rem 1rem 1rem;
+          width: 70%;
+          max-width: 250px;
+          transform: translateX(100%);
+          height: 100vh;
+          z-index: 999;
+        }
+
+        .nav-links.active {
+          transform: translateX(0);
+        }
+
+        .nav-links a {
+          margin: 0.5rem 0;
+          font-size: 1.5rem;
+        }
+      }
+
+      .hero {
+        padding: 4rem 2rem;
+        text-align: center;
+      }
+
+      .hero h1 {
+        font-family: "Caveat", cursive;
+        font-size: 3rem;
+        color: var(--pink);
+      }
+
+      .hero p {
+        margin-top: 1rem;
+        font-size: 1.2rem;
+        color: var(--white);
+      }
+
+      .story-section {
+        padding: 2rem;
+        max-width: 800px;
+        margin: auto;
+      }
+
+      .story-section p {
+        margin-bottom: 1.5rem;
+        text-align: justify;
+      }
+
+      audio {
+        width: 100%;
+        max-width: 400px;
+        margin-top: 1rem;
+      }
+    </style>
+    <script>
+      function toggleMenu() {
+        document.querySelector(".nav-links").classList.toggle("active");
+      }
+    </script>
+  </head>
+  <body>
+    <header class="main-header">
+      <div class="header-container">
+        <h1>Belloved</h1>
+        <button class="nav-toggle" onclick="toggleMenu()">☰</button>
+      </div>
+      <nav class="nav-links">
+        <a href="#home">Home</a>
+        <a href="gallery.html">Gallery</a>
+
+      </nav>
+    </header>
+
+    <section class="hero" id="home">
+      <h1>Hai!!</h1>
+      <p>
+        Disini adalah cerita perjalanan sang ratu lebah dan raja tawon
+      </p>
+    </section>
+
+    <section class="story-section" id="story">
+      <h2 style="color: var(--pink); text-align: center; margin-bottom: 1rem">
+        Latar Belakang
+      </h2>
+      <p>
+        Semua dimulai dari sebuah event bernama ALTAR dimana event tersebut diadakan di suatu sekolah yang bernama SMAN 1 Kasihan atau biasa disebut Tirtonirmolo
+      </p>
+      <p>
+        Kisah ini adalah kisah tentang dua buah insan yang saling berjuang dan belajar tentang bagaimana cara memahami, menerima, dan mencintai dalam versi terbaik maupun terbukur mereka. karena belajar juga bisa lewat luka, inilah kisah kita.
+      </p>
+    </section>
