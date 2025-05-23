@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="="en">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gallery - Our Love Story</title>
-  <link href="https://fonts.googleapis.com/css2?family=Caveat&family=Poppins:wght@300;500&display=swap" rel="stylesheet" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Romantic Timeline</title>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat&family=Poppins:wght@300;500&display=swap" rel="stylesheet"/>
   <style>
     :root {
       --pink: #ff6ec7;
@@ -13,34 +13,29 @@
     }
 
     * {
-      margin: 0;
-      padding: 0;
+      margin: 0; padding: 0;
       box-sizing: border-box;
     }
 
     body {
-      font-family: "Poppins", sans-serif;
-      background: #000000;
-      color: var(--white);
+      font-family: 'Poppins', sans-serif;
+      background: #000;
+      color: white;
       overflow-x: hidden;
       position: relative;
     }
 
-    /* Bintang */
     .stars, .meteors {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       pointer-events: none;
       z-index: 0;
     }
 
     .star {
       position: absolute;
-      width: 2px;
-      height: 2px;
+      width: 2px; height: 2px;
       background: white;
       border-radius: 50%;
       opacity: 0.4;
@@ -48,230 +43,307 @@
     }
 
     @keyframes twinkle {
-      0%, 100% { opacity: 0.2; transform: scale(1); }
+      0%,100% { opacity: 0.2; transform: scale(1); }
       50% { opacity: 0.8; transform: scale(1.3); }
     }
 
-    /* Meteor */
     .meteor {
       position: absolute;
       width: 2px;
       height: 80px;
-      background: linear-gradient(to bottom, white, rgba(255, 255, 255, 0));
+      background: linear-gradient(to bottom, white, transparent);
       opacity: 0.8;
       transform: rotate(45deg);
-      animation: shoot 1.2s ease-out forwards;
+      animation: shoot 3s ease-out forwards;
       filter: drop-shadow(0 0 6px white);
     }
 
     @keyframes shoot {
-      0% {
-        transform: translate(0, 0) rotate(45deg);
-        opacity: 1;
-      }
-      100% {
-        transform: translate(-600px, 600px) rotate(45deg);
-        opacity: 0;
-      }
+      0% { transform: translate(0, 0) rotate(45deg); opacity: 1; }
+      100% { transform: translate(-600px, 600px) rotate(45deg); opacity: 0; }
     }
 
     header {
-      background: rgba(255, 255, 255, 0);
-      padding: 1rem;
       text-align: center;
+      padding-top: 2rem;
+      z-index: 2;
       position: relative;
-      z-index: 1;
     }
 
     header h1 {
       color: var(--pink);
+      font-family: 'Caveat', cursive;
+      font-size: 3rem;
       animation: glow 2s infinite;
       text-shadow: 0 0 5px #ff6ec7, 0 0 10px #ff6ec7;
     }
 
     @keyframes glow {
-      0% {
-        text-shadow: 0 0 5px #ff6ec7, 0 0 10px #ff6ec7;
-      }
-      50% {
-        text-shadow: 0 0 20px #ff6ec7, 0 0 30px #ff6ec7;
-      }
-      100% {
-        text-shadow: 0 0 5px #ff6ec7, 0 0 10px #ff6ec7;
-      }
+      0% { text-shadow: 0 0 5px #ff6ec7, 0 0 10px #ff6ec7; }
+      50% { text-shadow: 0 0 20px #ff6ec7, 0 0 30px #ff6ec7; }
+      100% { text-shadow: 0 0 5px #ff6ec7, 0 0 10px #ff6ec7; }
     }
 
-    .gallery-container {
-      padding: 2rem;
-      max-width: 1200px;
-      margin: auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       position: relative;
       z-index: 1;
+      padding: 4rem 1rem;
     }
 
-    .gallery-container img {
-      width: 100%;
-      border: 5px solid #ffb6d9;
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 0;
+      left: 50%;
+      width: 4px;
+      background: linear-gradient(to bottom, #ff6ec7 20%, transparent 40%, #ff6ec7 60%);
+      background-size: 10px 40px;
+      background-repeat: repeat-y;
+      transform: translateX(-50%);
+      z-index: 0;
+    }
+
+    .timeline-item {
+      background: #1a1a1a;
+      border: 3px solid #ff6ec7;
       border-radius: 20px;
-      background: #fff0f6;
-      box-shadow: 0 0 15px rgba(255, 110, 199, 0.3);
-      transition: transform 0.3s ease;
+      width: 90%;
+      max-width: 300px;
+      padding: 1rem;
+      margin: 2rem 0;
+      position: relative;
+      box-shadow: 0 0 15px #ff6ec7;
+      transform: scale(0.8) translateY(60px) rotate(var(--angle));
+      opacity: 0;
+      transition: all 1s ease-out;
       cursor: pointer;
     }
 
-    .gallery-container img:hover {
-      transform: scale(1.05);
-    }
-    
-    @media (max-width: 600px) {
-      .gallery-container {
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 1rem;
-      padding: 1rem;
-      }
-      
-      .gallery-container img {
-        border-width: 3px;
-        border-radius: 12px;
-      }
-
-      header h1 {
-        font-size: 1.5rem;
-      }
-
-      .image-modal img {
-        max-height: 50vh;
-      }
-
-      .image-modal p {
-        font-size: 1rem;
-        padding: 0 1rem;
-      }
+    .timeline-item:nth-child(odd) {
+      align-self: flex-start;
+      --angle: -3deg;
     }
 
+    .timeline-item:nth-child(even) {
+      align-self: flex-end;
+      --angle: 3deg;
+    }
 
-    .image-modal {
-      position: fixed;
-      top: 0;
-      left: 0;
+    .timeline-item.visible {
+      opacity: 1;
+      transform: scale(1) translateY(0) rotate(var(--angle));
+    }
+
+    .timeline-item img {
       width: 100%;
-      height: 100%;
-      background: rgba(10, 10, 10, 0.9);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      z-index: 9999;
-      display: none;
-      padding: 1rem;
+      border-radius: 12px;
+      display: block;
     }
 
-    .image-modal img {
+    .modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.9);
+  display: flex;
+  justify-content: flex-start; /* penting untuk scroll dari atas */
+  align-items: center;
+  flex-direction: column;
+  padding: 1rem;
+  overflow-y: auto; /* <== ini kunci scroll */
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 9999;
+}
+
+
+    .modal.active {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .modal img {
       max-width: 90%;
-      max-height: 60vh;
+      max-height: 65vh;
       border-radius: 12px;
       border: 4px solid #ff6ec7;
+      box-shadow: 0 0 20px #ff6ec7;
+      margin-bottom: 1rem;
+      animation: zoomIn 0.3s ease;
+    }
+
+    @keyframes zoomIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal p {
+      color: #fff;
+      font-size: 1rem;
+      max-width: 90%;
+      text-align: center;
       margin-bottom: 1rem;
     }
 
-    .image-modal p {
-      color: #fff;
-      font-size: 1.1rem;
-      text-align: center;
-      max-width: 90%;
-    }
-
-    .image-modal button {
-      margin-top: 1rem;
-      padding: 0.5rem 1rem;
+    .modal button {
       background: var(--pink);
       border: none;
+      padding: 0.5rem 1.2rem;
       border-radius: 8px;
       font-weight: bold;
-      cursor: pointer;
       color: var(--black);
+      cursor: pointer;
     }
 
-    .image-modal button:hover {
+    .modal button:hover {
       background: #ff90d2;
     }
 
-    .back-button {
-      display: inline-block;
-      margin: 2rem auto;
-      text-align: center;
-      padding: 0.75rem 1.5rem;
+    .button-row {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      padding: 2rem;
+      z-index: 2;
+      position: relative;
+    }
+
+    .btn {
       background: var(--pink);
       color: var(--black);
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 30px;
       font-weight: bold;
-      border-radius: 8px;
+      font-family: 'Poppins', sans-serif;
+      cursor: pointer;
       text-decoration: none;
+      box-shadow: 0 0 10px #ff6ec7;
       transition: background 0.3s ease;
-      position: relative;
-      z-index: 1;
     }
 
-    .back-button:hover {
+    .btn:hover {
       background: #ff90d2;
+    }
+
+    @media (max-width: 600px) {
+      .timeline-item {
+        max-width: 60%;
+        margin: 1.5rem auto;
+      }
+
+      .modal img {
+        max-width: 95%;
+        max-height: 60vh;
+        margin-top: 2rem;
+      }
+
+      .modal p {
+        font-size: 0.9rem;
+        padding: 0 1rem;
+      }
     }
   </style>
 </head>
 <body>
-  <!-- Bintang dan Meteor -->
   <div class="stars" id="stars"></div>
   <div class="meteors" id="meteors"></div>
 
-  <header>
-    <h1>Our Memories</h1>
-  </header>
+  <header><h1>Our Memories</h1></header>
 
-  <div class="gallery-container">
-    <img src="gmb/altar.jpg" alt="Foto 1" onclick="openModal('gmb/altar.jpg', 'Altar pertama yang menjadi awal mula bisa bertemunya abel dengan bella ^-^. dulu pada kelas 10 SMA Abel atau disebut raja tawon mendaftarkan dirinya pada event ALTAR, event ini adalah event tahunan sekolah yang bertujuan untuk mengasah bakat para siswa dalam ber teater atau berdrama. Abel ini sebenarnya tak pandai berdrama jadi dia mendapatkan peran Prajurit, yah... tahun ke tahun dia selalu jadi prajurit.')" />
-    <img src="gmb/cafe.jpg" alt="Foto 2" onclick="openModal('gmb/cafe.jpg', 'Ini foto abel dan bella di sebuah cafe bernama Terra yang terletak di selatan UGM. agenda abel dan bella waktu itu adalah double date dengan ashraf dan nasywa, dimana saat itu bella ga sengaja numpahin air xixixi, bella sampe takut kalo abel ilfeel padahal biasa aja. hari itu seru banget sih!!')" />
-    <img src="gmb/pramuka.jpg" alt="Foto 3" onclick="openModal('gmb/pramuka.jpg', 'Salam Pramuka!!, foto ini diambil pada saat masi SMA, masa itu adalah masa paling indah. Setiap hari Abel selalu menjemput bella dengan motor biru gahar nya, dan selalu pulang bersama setelah sekolah usai. dulu Bella sering telat kalo ga dijemput makanya Abel selalu berusaha menjemput karena guru BK pun suruh Abel jemput Bella terus.')" />
-    <img src="gmb/bali.jpg" alt="Foto 4" onclick="openModal('gmb/bali.jpg', 'Night Bali Beach!!!. Wah ini adalah foto yang paling dirindukan sih karena kapan banyak banget cerita disana, bukan cuma soal Bella dan Abel tapi kalian ga akan pernah bisa lupain gimana rasanya study tour 1 sekolah bareng temen-temen lagi. Ah iya foto ini diambil habis Bella dan Abel bertengkar lucu, ah sungguh rasanya ingin kembali ke waktu itu.')" />
-    <img src="gmb/mall.jpg" alt="Foto 5" onclick="openModal('gmb/mall.jpg', 'eits mall date nih. kata bella foto ini lucu, emang sih lucu.. Bella nya, Abel nya mah merem gitu. haha ini kita abis mall nonton di JCM, woah kumisnya Abel masi murni disitu... ')" />
-    <img src="gmb/altar2.jpg" alt="Foto 6" onclick="openModal('gmb/altar2.jpg', 'Altar kedua dan terakhir.. , ini adalah Altar tahun berikutnya dimana Bella menjadi panitia dan Abel masih seperti dulu yaitu menjadi Prajurit, ya tapi naik level dikit lah. Bella sibuk banget waktu itu karena dia Divisi dekor dimana kerjanya ya dekor semua property yang di gunain, huf pasti cape banget. tapi Altar 2 berkesan banget karena udah gabisa main lagi setelah ini karena udah menempu jenjang kuliah.. ')" />
-    <img src="gmb/kuliah.jpg" alt="Foto 7" onclick="openModal('gmb/kuliah.jpg', 'Kuliarghhhhhh... , yap Bella dan Abel sudah memasuki jenjang kuliah dimana Bella di UMY dan Abel di UGM. sangat sulit sebenarnya merelakan waktu SMA dimana selalu bisa berangkat bareng dan sebagainya..., tapi waktu tak bisa berhenti jadi semua harus dijalani. Asek dramatis banget tapi emang fakta hehe. banyak konflik yang terjadi dan ombak yang terus menghantam hubungan di masa itu tapi mereka akan tetap bersama sebesar apapun ombak itu!!.')" />
-    <img src="gmb/solo.jpg" alt="Foto 8" onclick="openModal('gmb/solo,jpg', 'Solo...... So Seru lhoooo, Liburan ke solo adalah pertama kalinya Abel dan Bella main yang agak jauhan dikit hahahaha ga di jogja melulu. Waktu itu kita naik kereta yang nyaman, bukan KRL karena takut berdesakan. tapi abel lalai karena kunci motor malah ketinggalan di kereta... hadeh, tapi sesampai di solo sayangnya malah hujan jadi cuma bisa nikmati bagian mirror nya the heritage doang. Next Wajib kesana lagi buat foto di outdoor!!.')" />
+  <div class="timeline" id="timeline">
+  <div class="timeline-item" data-img="gmb/altar.jpg" data-desc="Altar pertama yang menjadi awal mula bisa bertemunya abel dengan bella ^-^. dulu pada kelas 10 SMA Abel atau disebut raja tawon mendaftarkan dirinya pada event ALTAR, event ini adalah event tahunan sekolah yang bertujuan untuk mengasah bakat para siswa dalam ber teater atau berdrama. Abel ini sebenarnya tak pandai berdrama jadi dia mendapatkan peran Prajurit, yah... tahun ke tahun dia selalu jadi prajurit.">
+    <img src="gmb/altar.jpg" alt="Foto 1" />
+  </div>
+  <div class="timeline-item" data-img="gmb/cafe.jpg" data-desc="Ini foto abel dan bella di sebuah cafe bernama Terra yang terletak di selatan UGM. agenda abel dan bella waktu itu adalah double date dengan ashraf dan nasywa, dimana saat itu bella ga sengaja numpahin air xixixi, bella sampe takut kalo abel ilfeel padahal biasa aja. hari itu seru banget sih!!">
+    <img src="gmb/cafe.jpg" alt="Foto 2" />
+  </div>
+  <div class="timeline-item" data-img="gmb/pramuka.jpg" data-desc="Salam Pramuka!!, foto ini diambil pada saat masi SMA, masa itu adalah masa paling indah. Setiap hari Abel selalu menjemput bella dengan motor biru gahar nya, dan selalu pulang bersama setelah sekolah usai. dulu Bella sering telat kalo ga dijemput makanya Abel selalu berusaha menjemput karena guru BK pun suruh Abel jemput Bella terus.">
+    <img src="gmb/pramuka.jpg" alt="Foto 3" />
+  </div>
+  <div class="timeline-item" data-img="gmb/bali.jpg" data-desc="Night Bali Beach!!!. Wah ini adalah foto yang paling dirindukan sih karena kapan banyak banget cerita disana, bukan cuma soal Bella dan Abel tapi kalian ga akan pernah bisa lupain gimana rasanya study tour 1 sekolah bareng temen-temen lagi. Ah iya foto ini diambil habis Bella dan Abel bertengkar lucu, ah sungguh rasanya ingin kembali ke waktu itu.">
+    <img src="gmb/bali.jpg" alt="Foto 4" />
+  </div>
+  <div class="timeline-item" data-img="gmb/mall.jpg" data-desc="eits mall date nih. kata bella foto ini lucu, emang sih lucu.. Bella nya, Abel nya mah merem gitu. haha ini kita abis mall nonton di JCM, woah kumisnya Abel masi murni disitu... ">
+    <img src="gmb/mall.jpg" alt="Foto 5" />
+  </div>
+  <div class="timeline-item" data-img="gmb/altar2.jpg" data-desc="Altar kedua dan terakhir.. , ini adalah Altar tahun berikutnya dimana Bella menjadi panitia dan Abel masih seperti dulu yaitu menjadi Prajurit, ya tapi naik level dikit lah. Bella sibuk banget waktu itu karena dia Divisi dekor dimana kerjanya ya dekor semua property yang di gunain, huf pasti cape banget. tapi Altar 2 berkesan banget karena udah gabisa main lagi setelah ini karena udah menempu jenjang kuliah..">
+    <img src="gmb/altar2.jpg" alt="Foto 6" />
+  </div>
+  <div class="timeline-item" data-img="gmb/kuliah.jpg" data-desc="Kuliarghhhhhh... , yap Bella dan Abel sudah memasuki jenjang kuliah dimana Bella di UMY dan Abel di UGM. sangat sulit sebenarnya merelakan waktu SMA dimana selalu bisa berangkat bareng dan sebagainya..., tapi waktu tak bisa berhenti jadi semua harus dijalani. Asek dramatis banget tapi emang fakta hehe. banyak konflik yang terjadi dan ombak yang terus menghantam hubungan di masa itu tapi mereka akan tetap bersama sebesar apapun ombak itu!!.">
+    <img src="gmb/kuliah.jpg" alt="Foto 7" />
+  </div>
+  <div class="timeline-item" data-img="gmb/solo.jpg" data-desc="Solo...... So Seru lhoooo, Liburan ke solo adalah pertama kalinya Abel dan Bella main yang agak jauhan dikit hahahaha ga di jogja melulu. Waktu itu kita naik kereta yang nyaman, bukan KRL karena takut berdesakan. tapi abel lalai karena kunci motor malah ketinggalan di kereta... hadeh, tapi sesampai di solo sayangnya malah hujan jadi cuma bisa nikmati bagian mirror nya the heritage doang. Next Wajib kesana lagi buat foto di outdoor!!.">
+    <img src="gmb/solo.jpg" alt="Foto 8" />
+  </div>
+</div>
+
+
+  <div class="button-row">
+    <a href="index.html" class="btn">Back</a>
+    <button class="btn" onclick="summonMultipleMeteors()">★</button>
   </div>
 
-  <div class="image-modal" id="imageModal">
-    <img id="modalImage" src="" alt="preview" />
-    <p id="modalCaption">Deskripsi kenangan...</p>
-    <button onclick="closeModal()">Tutup</button>
-  </div>
-
-  <div style="text-align: center">
-    <a href="index.html" class="back-button">Back</a>
+  <div class="modal" id="previewModal">
+    <img id="modalImg" src="" alt="Preview" />
+    <p id="modalDesc"></p>
+    <button onclick="closeModal()">Close</button>
   </div>
 
   <script>
-    // Modal logic
-    const modal = document.getElementById("imageModal");
-    const modalImg = document.getElementById("modalImage");
-    const modalCaption = document.getElementById("modalCaption");
+    const modal = document.getElementById("previewModal");
+    const modalImg = document.getElementById("modalImg");
+    const modalDesc = document.getElementById("modalDesc");
+    const timelineItems = document.querySelectorAll(".timeline-item");
+    let currentIndex = 0;
 
     function openModal(src, caption) {
-      modal.style.display = "flex";
       modalImg.src = src;
-      modalCaption.textContent = caption;
+      modalDesc.textContent = caption;
+      modal.classList.add("active");
     }
 
     function closeModal() {
-      modal.style.display = "none";
+      modal.classList.remove("active");
     }
 
-    modal.addEventListener("click", (e) => {
+    modal.addEventListener("click", e => {
       if (e.target === modal) closeModal();
     });
 
-    // Generate stars
+    timelineItems.forEach((item, index) => {
+      item.addEventListener("click", () => {
+        currentIndex = index;
+        openModal(item.dataset.img, item.dataset.desc);
+      });
+    });
+
+    modal.addEventListener("touchstart", e => startX = e.touches[0].clientX);
+    modal.addEventListener("touchend", e => {
+      const endX = e.changedTouches[0].clientX;
+      if (endX - startX > 50 && currentIndex > 0) currentIndex--, show(currentIndex);
+      if (startX - endX > 50 && currentIndex < timelineItems.length - 1) currentIndex++, show(currentIndex);
+    });
+
+    function show(index) {
+      const item = timelineItems[index];
+      openModal(item.dataset.img, item.dataset.desc);
+    }
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add("visible");
+      });
+    }, { threshold: 0.2 });
+
+    timelineItems.forEach(item => observer.observe(item));
+
     const starContainer = document.getElementById("stars");
-    for (let i = 0; i < 60; i++) {
+    for (let i = 0; i < 80; i++) {
       const star = document.createElement("div");
       star.classList.add("star");
       star.style.top = Math.random() * 100 + "%";
@@ -280,21 +352,25 @@
       starContainer.appendChild(star);
     }
 
-    // Meteor logic
     const meteorContainer = document.getElementById("meteors");
 
     function shootMeteor() {
       const meteor = document.createElement("div");
       meteor.classList.add("meteor");
       meteor.style.top = Math.random() * 30 + "%";
-      meteor.style.left = Math.random() * 60 + 30 + "%";
+      meteor.style.left = Math.random() * 60 + 20 + "%";
       meteorContainer.appendChild(meteor);
-
-      setTimeout(() => meteor.remove(), 1500);
+      setTimeout(() => meteor.remove(), 3000);
     }
-    
 
-    setInterval(shootMeteor, 6000); // Meteor every 6s
+    function summonMultipleMeteors() {
+      for (let i = 0; i < 6; i++) {
+        setTimeout(shootMeteor, i * 400 + Math.random() * 300);
+      }
+    }
+
+    setInterval(shootMeteor, 30000);
   </script>
 </body>
 </html>
+  
